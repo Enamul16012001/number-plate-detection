@@ -19,18 +19,14 @@ def process_and_save_images(input_folder, output_folder):
             results = model(image)
             result = results[0]
             
-            # Get the result image as a numpy array (with boxes, etc.)
-            result_image = result.plot()  # This will return a NumPy array
+            result_image = result.plot()
             
-            # Convert the numpy array to a PIL Image
             result_image_pil = Image.fromarray(result_image)
             
-            # Save the result image to the output folder
             output_path = os.path.join(output_folder, filename)
             result_image_pil.save(output_path)
             print(f"Processed image saved at: {output_path}")
 
-# Example usage
 input_folder = "./val_resize"
 output_folder = "./val_out"
 process_and_save_images(input_folder, output_folder)
