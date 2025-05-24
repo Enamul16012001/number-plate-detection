@@ -1,0 +1,10 @@
+torch
+ultralytics
+tensorflow
+tflite-runtime
+supervision
+requests
+fastapi
+uvicorn
+python-multipart
+gradio

@@ -10,11 +10,7 @@ model.export(format="onnx")
 onnx_model = YOLO("./license_plate_detection/yolov11_training/weights/best.onnx")
 
 model.export(format="tflite")
-tflite_model = YOLO("yolo11n_float32.tflite")
+tflite_model = YOLO("./license_plate_detection/yolov11_training/weights/best_saved_model/best_float32.tflite")
 
-
-results = onnx_model("./val_resize/290.jpg")
-results = ov_model("./val_resize/290.jpg")
-
-# Run inference with specified device, available devices: ["intel:gpu", "intel:npu", "intel:cpu"]
-#results = ov_model("https://ultralytics.com/images/bus.jpg", device="intel:gpu")
+model.export(format="torchscript")
+torchscript_model = YOLO("./license_plate_detection/yolov11_training/weights/best.torchscript")
