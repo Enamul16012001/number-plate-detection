@@ -3,12 +3,13 @@ import time
 import numpy as np
 import cv2
 from PIL import Image
+import argparse
 
 import torch
 import onnxruntime as ort
 from ultralytics import YOLO
 from openvino.runtime import Core
-import tflite_runtime.interpreter as tflite  # Or import tensorflow as tf if needed
+import tflite_runtime.interpreter as tflite  # Or use TensorFlow if needed
 
 # Paths
 input_folder = "./val_resize"
@@ -146,14 +147,27 @@ def benchmark_tflite(folder_path, model_path, label):
     avg = total / len(image_files)
     results[label] = (total, avg)
 
-# ---------- RUN ALL ----------
+# ---------- MAIN ----------
 if __name__ == "__main__":
-    benchmark_yolo(input_folder)
-    benchmark_torchscript(input_folder)
-    benchmark_onnx(input_folder)
-    benchmark_openvino(input_folder)
-    benchmark_tflite(input_folder, tflite_f32_path, "TFLite Float32")
-    benchmark_tflite(input_folder, tflite_f16_path, "TFLite Float16")
+    parser = argparse.ArgumentParser(description="Benchmark model inference times.")
+    parser.add_argument("--model", type=str, default="ALL",
+                        help="Which model to run: YOLO, TorchScript, ONNX, OpenVINO, TFLite Float32, TFLite Float16, or ALL")
+    args = parser.parse_args()
+
+    selected = args.model.strip().upper()
+
+    if selected == "YOLO" or selected == "ALL":
+        benchmark_yolo(input_folder)
+    if selected == "TORCHSCRIPT" or selected == "ALL":
+        benchmark_torchscript(input_folder)
+    if selected == "ONNX" or selected == "ALL":
+        benchmark_onnx(input_folder)
+    if selected == "OPENVINO" or selected == "ALL":
+        benchmark_openvino(input_folder)
+    if selected == "TFLITE FLOAT32" or selected == "ALL":
+        benchmark_tflite(input_folder, tflite_f32_path, "TFLite Float32")
+    if selected == "TFLITE FLOAT16" or selected == "ALL":
+        benchmark_tflite(input_folder, tflite_f16_path, "TFLite Float16")
 
     print("\n========= Inference Summary =========")
     for key, (total, avg) in results.items():
