@@ -101,10 +101,10 @@ The script provides detailed timing information:
 [TFLite Float16] Found 150 images
 
 ========= Inference Summary =========
-YOLO: Total = 70.63s, Avg per image = 0.1320s
-TorchScript: Total = 57.77s, Avg per image = 0.1080s
-ONNX: Total = 41.74s, Avg per image = 0.0780s
-OpenVINO: Total = 33.54s, Avg per image = 0.0627s
-TFLite Float32: Total = 112.38s, Avg per image = 0.2100s
-TFLite Float16: Total = 127.95s, Avg per image = 0.2392s
+YOLO: Total = 73.64s, Avg per image = 0.1377s
+TorchScript: Total = 58.22s, Avg per image = 0.1088s
+ONNX: Total = 39.40s, Avg per image = 0.0736s
+OpenVINO: Total = 30.10s, Avg per image = 0.0563s
+TFLite Float32: Total = 106.40s, Avg per image = 0.1989s
+TFLite Float16: Total = 106.61s, Avg per image = 0.1993s
 ```
